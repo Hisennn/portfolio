@@ -9,7 +9,7 @@
   --text-primary: #d6dde4;
   --text-dest: #c3cad1;
   --text-extra: #c5ccd1;
-  --text-secondary: #7d8590;
+  --text-secondary: #979da7;
   --accent-blue: #2a73d3;
   --border-color: #565e68;
   --border-color-extra: #30363d;
@@ -24,7 +24,7 @@
   --text-primary: #333333;
   --text-dest: #4a4a4a;
   --text-extra: #555555;
-  --text-secondary: #6b7280;
+  --text-secondary: #5b616d;
   --accent-blue: #1d4ed8;
   --border-color: #a5aaaf;
   --border-color-extra: #d9dfe6;
@@ -259,6 +259,7 @@ body {
   border-radius: var(--radius);
 }
 
+
 .project-item > a {
   font-size: 1.2rem;
   line-height: 1.3;
@@ -266,9 +267,13 @@ body {
   text-decoration: underline;
   width: fit-content;
 }
-.project-item> span {
-  font-size: 0.9rem;
+.project-desc {
+  font-size: 0.875rem;
   color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  line-height: 1.1;
 }
 .project-item > a:hover {
   filter: brightness(1.4);
