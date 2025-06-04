@@ -345,6 +345,7 @@ body {
   border-radius: var(--radius);
   margin-top: 10px;
   margin-bottom: 5px;
+  font-size: 0.850rem;
 }
 
 .education-imp > svg {
@@ -352,7 +353,6 @@ body {
 }
 
 .education-imp > span {
-  font-size: 0.975rem;
   font-weight: 300;
   color: var(--text-secondary);
 }
