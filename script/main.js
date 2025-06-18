@@ -1,6 +1,6 @@
 const skillsContainer = document.getElementById('skillsContainer');
-const skillsList = document.getElementById('skillsList');
-const skillItems = skillsList.querySelectorAll('li');
+const allSkillsLists = skillsContainer.querySelectorAll('.articles-skills-items');
+const allSkillItems = skillsContainer.querySelectorAll('.articles-skills-items li');
 
 function getDistance(x1, y1, x2, y2) {
   return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
@@ -10,39 +10,41 @@ function getBorderColor() {
   return getComputedStyle(document.documentElement).getPropertyValue('--border-color-extra').trim();
 }
 
-skillsList.addEventListener('mousemove', (e) => {
-  skillsContainer.classList.add('spotlight-active');
+allSkillsLists.forEach(skillsList => {
+  skillsList.addEventListener('mousemove', (e) => {
+    skillsContainer.classList.add('spotlight-active');
 
-  const mouseX = e.clientX;
-  const mouseY = e.clientY;
-  
-  skillItems.forEach((item) => {
-    const rect = item.getBoundingClientRect();
-    const itemCenterX = rect.left + rect.width / 2;
-    const itemCenterY = rect.top + rect.height / 2;
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    
+    allSkillItems.forEach((item) => {
+      const rect = item.getBoundingClientRect();
+      const itemCenterX = rect.left + rect.width / 2;
+      const itemCenterY = rect.top + rect.height / 2;
 
-    const distance = getDistance(mouseX, mouseY, itemCenterX, itemCenterY);
-    const maxDistance = 150;
+      const distance = getDistance(mouseX, mouseY, itemCenterX, itemCenterY);
+      const maxDistance = 150;
 
-    const brightness = Math.max(0.6, 1 - (distance / maxDistance * 0.4));
-    const saturation = Math.max(0.7, 1 - (distance / maxDistance * 0.3));
+      const brightness = Math.max(0.6, 1 - (distance / maxDistance * 0.4));
+      const saturation = Math.max(0.7, 1 - (distance / maxDistance * 0.3));
 
-    const icon = item.querySelector('i');
-    icon.style.filter = `brightness(${brightness}) saturate(${saturation})`;
+      const icon = item.querySelector('i');
+      icon.style.filter = `brightness(${brightness}) saturate(${saturation})`;
+    });
   });
-});
 
-skillsList.addEventListener('mouseleave', () => {
-  skillsContainer.classList.remove('spotlight-active');
+  skillsList.addEventListener('mouseleave', () => {
+    skillsContainer.classList.remove('spotlight-active');
 
-  skillItems.forEach((item) => {
-    const icon = item.querySelector('i');
-    icon.style.transition = 'filter 0.4s ease-out';
-    icon.style.filter = 'brightness(1) saturate(1)';
+    allSkillItems.forEach((item) => {
+      const icon = item.querySelector('i');
+      icon.style.transition = 'filter 0.4s ease-out';
+      icon.style.filter = 'brightness(1) saturate(1)';
 
-    setTimeout(() => {
-      icon.style.transition = 'filter 0.2s ease';
-    }, 400);
+      setTimeout(() => {
+        icon.style.transition = 'filter 0.2s ease';
+      }, 400);
+    });
   });
 });
 
@@ -141,3 +143,56 @@ function animateTooltip() {
     requestAnimationFrame(animateTooltip);
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const introScreen = document.querySelector('.intro-screen');
+  const bodyContent = document.querySelector('.body-content');
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+  const introProfile = document.querySelector('.intro-profile');
+  let isTransitioning = false;
+  let hasScrolled = false;
+
+  // Função para mostrar o conteúdo principal
+  function showMainContent() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    hasScrolled = true;
+
+    // Adiciona a classe para iniciar a animação de saída
+    introScreen.classList.add('hidden');
+    introProfile.classList.add('slide-out');
+
+    // Remove a classe hidden do conteúdo principal e adiciona visible
+    bodyContent.classList.remove('hidden');
+    bodyContent.classList.add('visible');
+
+    // Após a transição, remove a tela de introdução e habilita o scroll
+    setTimeout(() => {
+      introScreen.style.display = 'none';
+      document.body.style.overflow = 'auto';
+      isTransitioning = false;
+    }, 900);
+  }
+
+  // Função para lidar com o scroll
+  function handleScroll(e) {
+    if (hasScrolled) return;
+    
+    // Previne o scroll padrão
+    e.preventDefault();
+    
+    // Se estiver rolando para baixo, mostra o conteúdo principal
+    if (e.deltaY > 0) {
+      showMainContent();
+    }
+  }
+
+  // Adiciona o evento de scroll
+  window.addEventListener('wheel', handleScroll, { passive: false });
+
+  // Adiciona o evento de clique na seta
+  scrollIndicator.addEventListener('click', (e) => {
+    e.preventDefault();
+    showMainContent();
+  });
+});
