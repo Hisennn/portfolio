@@ -168,6 +168,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 900);
   }
 
+  // Se for mobile, pula a intro sem animação
+  if (window.innerWidth <= 768) {
+    introScreen.style.display = 'none';
+    bodyContent.classList.remove('hidden');
+    bodyContent.classList.add('visible');
+    document.body.style.overflow = 'auto';
+    hasScrolled = true;
+  }
+
   // scroll
   function handleScroll(e) {
     if (hasScrolled) return;

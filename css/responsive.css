@@ -106,6 +106,24 @@
   }
   
   .profile-socials {
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 16px !important;
+    margin-top: 10px;
+  }
+  .profile-socials li {
+    margin: 0;
+  }
+  .language-button {
+    white-space: nowrap;
+    font-size: 1rem;
+    padding: 6px 16px;
+    min-width: unset;
+    width: auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
     justify-content: center;
   }
   
@@ -230,6 +248,21 @@
   
   .footer-socials {
     font-size: 0.95rem;
+  }
+  
+  .profile-socials {
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-top: 8px;
+  }
+  .language-button {
+    font-size: 0.95rem;
+    padding: 6px 10px;
+    white-space: nowrap;
+    width: auto;
+    min-width: unset;
   }
 }
 
