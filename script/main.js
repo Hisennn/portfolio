@@ -152,21 +152,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let isTransitioning = false;
   let hasScrolled = false;
 
-  // Função para mostrar o conteúdo principal
+  // Mostrar conteúdo principal
   function showMainContent() {
     if (isTransitioning) return;
     isTransitioning = true;
     hasScrolled = true;
-
-    // Adiciona a classe para iniciar a animação de saída
     introScreen.classList.add('hidden');
     introProfile.classList.add('slide-out');
-
-    // Remove a classe hidden do conteúdo principal e adiciona visible
     bodyContent.classList.remove('hidden');
     bodyContent.classList.add('visible');
-
-    // Após a transição, remove a tela de introdução e habilita o scroll
     setTimeout(() => {
       introScreen.style.display = 'none';
       document.body.style.overflow = 'auto';
@@ -174,25 +168,162 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 900);
   }
 
-  // Função para lidar com o scroll
+  // scroll
   function handleScroll(e) {
     if (hasScrolled) return;
-    
-    // Previne o scroll padrão
     e.preventDefault();
-    
-    // Se estiver rolando para baixo, mostra o conteúdo principal
     if (e.deltaY > 0) {
       showMainContent();
     }
   }
 
-  // Adiciona o evento de scroll
   window.addEventListener('wheel', handleScroll, { passive: false });
-
-  // Adiciona o evento de clique na seta
   scrollIndicator.addEventListener('click', (e) => {
     e.preventDefault();
     showMainContent();
+  });
+
+  // Traduções
+  const translations = {
+    en: {
+      'profile-text': 'Web Development Student<br>Learning Ruby on Rails',
+      'profile-lang': 'pt/en',
+      'download-resume': 'Download Resume',
+      'about-title': 'About',
+      'about-text': `I'm a <strong>frontend</strong> and <strong>web development</strong> student, currently learning JavaScript and Ruby on Rails. Studying <strong>Systems Analysis and Development</strong> and working on understanding how modern web applications function, from the interface to the backend.<br>I also plan to learn Next.js and Node.js to build more complete applications.`,
+      'skills-title': 'Skills',
+      'skills-intermediate': 'Intermediate',
+      'skills-basic': 'Basic',
+      'projects-title': 'Projects',
+      'project1-title': 'Coordinates Saver',
+      'project1-desc': 'Coordinates Saver for Minecraft – a tool to manage coordinates, similar to a TODO list.',
+      'project2-title': 'ASCII converter',
+      'project2-desc': 'Text and image converter to ASCII.',
+      'education-title': 'Education',
+      'education-text': `I'm in the third semester of <strong>Systems Analysis and Development</strong>. I also keep learning through online courses to improve my skills and stay updated.`,
+      'education-formal': 'Formal',
+      'education-uni': 'Claretiano',
+      'education-uni-date': 'jan 2024 - jul 2026',
+      'education-uni-course': 'Systems Analysis and Development',
+      'education-uni-type': 'Associate Degree',
+      'education-online': 'Online Courses',
+      'education-online-course': 'Front End & UX/UI Design',
+      'education-online-type': 'Origamid',
+      'languages-title': 'Languages',
+      'lang-pt': 'Portuguese',
+      'lang-pt-skill': '- Native',
+      'lang-en': 'English',
+      'lang-en-skill': '- C1 Advanced |',
+      'footer-name': 'Gabriel Lemes',
+      'footer-rights': '© Some rights reserved',
+      'footer-linkedin': 'LinkedIn',
+      'footer-github': 'GitHub',
+    },
+    pt: {
+      'profile-text': 'Estudando Desenvolvimento Web<br>Aprendendo Ruby on Rails',
+      'profile-lang': 'pt/en',
+      'download-resume': 'Baixar Currículo',
+      'about-title': 'Sobre',
+      'about-text': 'Sou estudante de <strong>frontend</strong> e <strong>desenvolvimento web</strong>, atualmente estudo JavaScript e Ruby on Rails. Curso <strong>Análise e Desenvolvimento de Sistemas</strong> e busco entender como aplicações webs modernas funcionam, da interface ao backend.<br>Pretendo aprofundar em Next.js e Node.js para criar aplicações mais completas.',
+      'skills-title': 'Habilidades',
+      'skills-intermediate': 'Intermediário',
+      'skills-basic': 'Básico',
+      'projects-title': 'Projetos',
+      'project1-title': 'Coordinates Saver',
+      'project1-desc': 'Coordinates Saver para Minecraft – ferramenta para gerenciar coordenadas, tipo uma lista de tarefas.',
+      'project2-title': 'Conversor ASCII',
+      'project2-desc': 'Conversor de texto e imagem para ASCII.',
+      'education-title': 'Formação',
+      'education-text': 'Estou no terceiro semestre de <strong>Análise e Desenvolvimento de Sistemas</strong>. Também faço cursos online para melhorar minhas habilidades e me manter atualizado.',
+      'education-formal': 'Formal',
+      'education-uni': 'Claretiano',
+      'education-uni-date': 'jan 2024 - jul 2026',
+      'education-uni-course': 'Análise e Desenvolvimento de Sistemas',
+      'education-uni-type': 'Tecnólogo',
+      'education-online': 'Cursos Online',
+      'education-online-course': 'Front End & UX/UI Design',
+      'education-online-type': 'Origamid',
+      'languages-title': 'Idiomas',
+      'lang-pt': 'Português',
+      'lang-pt-skill': '- Nativo',
+      'lang-en': 'Inglês',
+      'lang-en-skill': '- C1 Avançado |',
+      'footer-name': 'Gabriel Lemes',
+      'footer-rights': '© Alguns direitos reservados',
+      'footer-linkedin': 'LinkedIn',
+      'footer-github': 'GitHub',
+    }
+  };
+
+  function setLanguage(lang) {
+    // Troca textos principais
+    document.querySelectorAll('.profile-text').forEach(el => el.innerHTML = translations[lang]['profile-text']);
+    document.querySelectorAll('.profile-lang').forEach(el => el.textContent = translations[lang]['profile-lang']);
+    document.querySelectorAll('a[download]').forEach(el => el.textContent = translations[lang]['download-resume']);
+    document.querySelectorAll('.articles-titles').forEach((el, i) => {
+      if(i === 0) el.textContent = translations[lang]['about-title'];
+      if(i === 1) el.textContent = translations[lang]['skills-title'];
+      if(i === 2) el.textContent = translations[lang]['projects-title'];
+      if(i === 3) el.textContent = translations[lang]['education-title'];
+      if(i === 4) el.textContent = translations[lang]['languages-title'];
+    });
+    document.querySelector('.articles-about-text').innerHTML = translations[lang]['about-text'];
+    document.querySelectorAll('.skill-category').forEach((el, i) => {
+      if(i === 0) el.textContent = translations[lang]['skills-intermediate'];
+      if(i === 1) el.textContent = translations[lang]['skills-basic'];
+    });
+    // Projetos
+    document.querySelectorAll('.project-item').forEach((el, i) => {
+      if(i === 0) {
+        el.querySelector('a').textContent = translations[lang]['project1-title'];
+        el.querySelectorAll('span')[0].textContent = translations[lang]['project1-desc'];
+      }
+      if(i === 1) {
+        el.querySelector('a').textContent = translations[lang]['project2-title'];
+        el.querySelectorAll('span')[0].textContent = translations[lang]['project2-desc'];
+      }
+    });
+    // Formação
+    document.querySelector('.education-text').innerHTML = translations[lang]['education-text'];
+    document.querySelectorAll('.education-imp span').forEach((el, i) => {
+      if(i === 0) el.textContent = translations[lang]['education-formal'];
+      if(i === 1) el.textContent = translations[lang]['education-online'];
+    });
+    document.querySelector('.uni-name').childNodes[0].textContent = translations[lang]['education-uni'] + ' ';
+    document.querySelector('.uni-name-date').textContent = translations[lang]['education-uni-date'];
+    document.querySelector('.uni-course').textContent = translations[lang]['education-uni-course'];
+    document.querySelector('.uni-type').textContent = translations[lang]['education-uni-type'];
+    document.querySelector('.online-course').textContent = translations[lang]['education-online-course'];
+    document.querySelector('.online-type').textContent = translations[lang]['education-online-type'];
+    // Idiomas
+    document.querySelectorAll('.lang-type')[0].textContent = translations[lang]['lang-pt'] + ' ';
+    document.querySelectorAll('.lang-skill')[0].textContent = translations[lang]['lang-pt-skill'];
+    const englishLi = document.querySelectorAll('.languages-item')[1].querySelector('li');
+    englishLi.innerHTML = `<span class="lang-type">${translations[lang]['lang-en']} </span><span class="lang-skill">${translations[lang]['lang-en-skill']}</span> <a href="https://cert.efset.org/en/8P1jdm" target="_blank">EF SET</a>`;
+    // Rodapé
+    document.querySelector('.footer-name').textContent = translations[lang]['footer-name'];
+    document.querySelector('.footer-text span').textContent = translations[lang]['footer-rights'];
+    document.querySelectorAll('.footer-socials li a').forEach((el, i) => {
+      if(i === 0) el.textContent = translations[lang]['footer-linkedin'];
+      if(i === 1) el.textContent = translations[lang]['footer-github'];
+    });
+    // Botão de idioma
+    document.getElementById('languageButton').textContent = lang === 'en' ? '/português' : '/english';
+  }
+
+  function getUserLang() {
+    const saved = localStorage.getItem('site-lang');
+    if(saved) return saved;
+    const navLang = navigator.language || navigator.userLanguage;
+    return navLang.startsWith('pt') ? 'pt' : 'en';
+  }
+
+  // Troca de idioma
+  let lang = getUserLang();
+  setLanguage(lang);
+  document.getElementById('languageButton').addEventListener('click', () => {
+    lang = lang === 'en' ? 'pt' : 'en';
+    setLanguage(lang);
+    localStorage.setItem('site-lang', lang);
   });
 });
